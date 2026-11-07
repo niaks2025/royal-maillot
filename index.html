@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal N - Maillots de football</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --violet: #24113d;
+      --violet-clair: #6d3ca8;
+      --dore: #f3b63f;
+      --vert: #18a957;
+      --blanc: #ffffff;
+      --gris: #f7f5f2;
+      --noir: #1e1a24;
+      --muted: #716b78;
+      --line: #e8e2eb;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      background: var(--gris);
+      color: var(--noir);
+      line-height: 1.5;
+    }
+
+    header {
+      min-height: 680px;
+      background:
+        linear-gradient(105deg, rgba(24, 10, 40, .96) 15%, rgba(57, 24, 83, .72) 58%, rgba(20, 15, 29, .35)),
+        url("images/accueil.jpg") center/cover;
+      color: white;
+      padding: 24px 7% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      color: white;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+    }
+
+    .logo span {
+      color: var(--dore);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .2s ease;
+    }
+
+    nav a:hover {
+      color: var(--dore);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+    }
+
+    .hero {
+      max-width: 690px;
+      margin-top: 155px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(43px, 7vw, 82px);
+      letter-spacing: -3px;
+      line-height: .98;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: var(--dore);
+    }
+
+    .hero p {
+      max-width: 540px;
+      color: rgba(255, 255, 255, .78);
+      font-size: 17px;
+      margin-bottom: 34px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--dore);
+      color: #21152b;
+      padding: 14px 23px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(217,164,65,.4);
+    }
+
+    section {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 92px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--violet);
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    .section-note {
+      max-width: 620px;
+      margin: 14px auto 0;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: -50px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .stat {
+      background: white;
+      padding: 20px 28px;
+      border: 1px solid rgba(36, 17, 61, .06);
+      border-radius: 12px;
+      box-shadow: 0 14px 30px rgba(36, 17, 61, .09);
+      text-align: center;
+      min-width: 190px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--violet-clair);
+      font-size: 25px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 220px;
+      max-width: 720px;
+      margin: 0 auto 36px;
+      gap: 12px;
+    }
+
+    .filters input,
+    .filters select {
+      width: 100%;
+      padding: 14px 17px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      outline: none;
+      color: var(--noir);
+      font-family: inherit;
+      font-size: 14px;
+      background: white;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: var(--violet-clair);
+      box-shadow: 0 0 0 3px rgba(109, 60, 168, .12);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .product {
+      background: white;
+      border: 1px solid rgba(36, 17, 61, .07);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(36, 17, 61, .06);
+      transition: transform .3s ease, box-shadow .3s ease;
+      opacity: 0;
+      transform: translateY(25px);
+    }
+
+    .product.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 34px rgba(36, 17, 61, .14);
+    }
+
+    .product-image {
+      height: 260px;
+      width: 100%;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .product-content {
+      padding: 20px;
+    }
+
+    .product-content h3 {
+      min-height: 48px;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--violet);
+      font-size: 18px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .category {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: var(--violet-clair);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 13px;
+    }
+
+    .stock {
+      color: #159447;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .stock.out {
+      color: #d22;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .small-btn {
+      flex: 1;
+      padding: 11px 9px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+      background: var(--violet);
+      color: white;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .small-btn:hover {
+      opacity: .9;
+      transform: translateY(-2px);
+    }
+
+    .small-btn.whatsapp {
+      background: var(--vert);
+    }
+
+    .about {
+      max-width: none;
+      margin: 0 7%;
+      background: linear-gradient(135deg, var(--violet), #4a246c);
+      color: white;
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: center;
+      padding: 65px 7%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(36, 17, 61, .18);
+    }
+
+    .about::after {
+      content: "ROYAL N";
+      position: absolute;
+      right: -25px;
+      bottom: -45px;
+      color: rgba(255, 255, 255, .07);
+      font-size: clamp(90px, 16vw, 210px);
+      font-weight: bold;
+      letter-spacing: -8px;
+      pointer-events: none;
+    }
+
+    .about-intro,
+    .about-values {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-label {
+      color: var(--dore);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .about h2 {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--dore);
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+
+    .about p {
+      color: rgba(255, 255, 255, .88);
+      line-height: 1.75;
+    }
+
+    .about-values h2 {
+      margin-bottom: 24px;
+    }
+
+    .value-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .value-item {
+      border-top: 1px solid rgba(255, 255, 255, .3);
+      padding-top: 14px;
+    }
+
+    .value-item strong {
+      display: block;
+      color: var(--dore);
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .value-item span {
+      color: rgba(255, 255, 255, .82);
+      font-size: 14px;
+    }
+
+    .contact {
+      text-align: center;
+      padding-top: 76px;
+      padding-bottom: 90px;
+    }
+
+    footer {
+      background: var(--violet);
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: var(--vert);
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(0,0,0,.25);
+      z-index: 10;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 9px 24px rgba(0,0,0,.3);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.7);
+      z-index: 20;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: grid;
+    }
+
+    .modal-box {
+      background: white;
+      max-width: 450px;
+      width: 100%;
+      border-radius: 14px;
+      padding: 30px;
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-box img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 9px;
+      margin: 15px 0;
+    }
+
+    .close {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      border: none;
+      background: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        min-height: 650px;
+        padding-left: 6%;
+        padding-right: 6%;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 45px;
+        background: var(--violet);
+        padding: 20px;
+        border-radius: 9px;
+        flex-direction: column;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero {
+        margin-top: 115px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 70px 6%;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .about {
+        margin: 0 6%;
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 45px 28px;
+      }
+
+      .value-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat {
+        min-width: 145px;
+        padding: 17px 16px;
+      }
+
+      .stat strong {
+        font-size: 21px;
+      }
+    }
+
+  </style>
+<body>
+
+  <header id="accueil">
+    <nav>
+      <div class="logo">Royal <span>N</span></div>
+
+      <button class="menu-btn" type="button" aria-label="Ouvrir le menu" onclick="toggleMenu()">☰</button>
+
+      <ul id="menu">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#maillots">Maillots</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <h1>Ton style.<br><span><em>Ton equipe</em>.</span><br>Ton maillot.</h1>
+      <p>Les meilleurs maillots de football disponibles a pointe noire à partir de 10 000 FCFA.</p>
+      <a href="#maillots" class="btn">Découvrir les maillots</a>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="productCount">0</strong>
+      <span>Maillots disponibles</span>
+    </div>
+
+    <div class="stat">
+      <strong>10 000 FCFA</strong>
+      <span>Prix de départ</span>
+    </div>
+
+    <div class="stat">
+      <strong>24/7</strong>
+      <span>Commande WhatsApp</span>
+    </div>
+  </div>
+
+  <section id="maillots">
+    <div class="section-title">
+      <h2>Nos maillots</h2>
+      <p>Choisis ton équipe et commande directement sur WhatsApp.</p>
+      <p class="section-note"> <h3>Nous dénichons des maillots originaux et des éditions difficiles à trouver pour celles et ceux qui vivent le football bien au-delà du terrain.</h3></p>
+    </div>
+
+    <div class="filters">
+      <input type="text" id="search" placeholder="Rechercher un maillot...">
+
+      <select id="category">
+        <option value="all">Toutes les équipes</option>
+        <option value="Barça">FC Barcelone</option>
+        <option value="Real Madrid">Real Madrid</option>
+        <option value="Japon">Japon</option>
+        <option value="Italie">Italie</option>
+        <option value="Design">Design spécial</option>
+        <option value="bresil">brésil</option>
+        <option value="coré">coré</option>
+        <option value="angleterre">angleterre</option>
+      </select>
+    </div>
+
+    <div class="products" id="productList"></div>
+  </section>
+
+  <section id="apropos">
+    <div class="about">
+      <div class="about-intro">
+        <p class="about-label">Notre identité</p>
+        <h2>Bienvenue chez Royal N</h2>
+        <p>
+          Nous proposons des maillots de football modernes, originaux et stylés
+          pour les passionnés de football à pointe-noire.
+          Commande facilement par WhatsApp et reçois les informations concernant
+          les tailles, le prix et la livraison.
+        </p>
+      </div>
+
+      <div class="about-values">
+        <p class="about-label">Pourquoi nous choisir ?</p>
+        <h2>Pourquoi nous choisir ?</h2>
+        <div class="value-list">
+          <div class="value-item">
+            <strong>01</strong>
+            <span>Maillots tendance</span>
+          </div>
+          <div class="value-item">
+            <strong>02</strong>
+            <span>Prix accessibles</span>
+          </div>
+          <div class="value-item">
+            <strong>03</strong>
+            <span>Commande rapide</span>
+          </div>
+          <div class="value-item">
+            <strong>04</strong>
+            <span>Disponibilité vérifiée</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-title">
+      <h2>Contactez Royal N</h2>
+      <p>Une question ? Écris-nous directement sur WhatsApp.</p>
+    </div>
+
+    <a
+      class="btn"
+      href="https://wa.me/24268123942?text=Bonjour%20Royal%20N%2C%20je%20voudrais%20voir%20les%20maillots%20disponibles."
+      target="_blank">
+      Commander sur WhatsApp
+    </a>
+  </section>
+
+  <footer>
+    <p>© 2026 Royal N - Congo-Brazzaville</p>
+  </footer>
+
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/24268123942"
+    target="_blank">
+    ☎
+  </a>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImage" src="images/accueil.jpg" alt="">
+      <p id="modalDescription"></p>
+      <br>
+      <a id="modalWhatsapp" class="btn" target="_blank">
+        Commander maintenant
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const whatsappNumber = "24268123942";
+
+    const products = [
+      {
+        name: "Maillot FC Barcelone domicile",
+        category: "Barça",
+        price: 10000,
+        image: "images/barca-domicile.jpg",
+        available: true,
+        description: "Maillot du FC Barcelone, modèle domicile, nouvelle collection."
+      },
+      {
+        name: "Maillot FC Barcelone violet",
+        category: "Barça",
+        price: 8500,
+        image: "images/barca-violet.jpg",
+        available: true,
+        description: "Maillot violet du FC Barcelone avec détails dorés."
+      },
+      {
+        name: "Maillot Real Madrid blanc",
+        category: "Real Madrid",
+        price: 10000,
+        image: "images/real-madrid.jpg",
+        available: true,
+        description: "Maillot blanc du Real Madrid, style classique."
+      },
+      {
+        name: "Maillot coré coupe du monde  violet",
+        category: "coré mondial",
+        price: 8500,
+        image: "images/coree.jpg",
+        available: true,
+        description: "Maillot violet de la coré avec finition moderne."
+      },
+      {
+        name: "Maillot japon stylée",
+        category: "Japon",
+        price: 10000,
+        image: "images/japon-style.jpg",
+        available: true,
+        description: "Maillot du Japon avec motifs tradtionnels japonais."
+      },
+      {
+        name: "Maillot Japon blanc",
+        category: "Japon",
+        price: 10000,
+        image: "images/japon-blanc.jpg",
+        available: true,
+        description: "Maillot blanc du Japon avec motifs traditionnels japonais."
+      },
+      {
+        name: "Maillot Italie design spécial",
+        category: "Italie",
+        price: 10000,
+        image: "images/italie.jpg",
+        available: true,
+        description: "Maillot vert de l'Italie avec motifs artistiques."
+      },
+      {
+        name: "Maillot dragon personnalisé",
+        category: "Design",
+        price: 9000,
+        image: "images/japon-dragon.jpg",
+        available: true,
+        description: "Maillot design dragon, disponible avec personnalisation."
+      },
+      {
+        name: "Maillot du brésil",
+        category: "brazil !!",
+        price: 10000,
+        image: "images/bresil.jpg",
+        available: true,
+        description: "Maillot bresil chil."
+      },
+      {
+        name: "Maillot d'angleterre de la coupe du monde 2026",
+        category: "coupe du monde angleterre",
+        price: 10000,
+        image: "images/angleterre.jpg",
+        available: true,
+        description: "Maillot d'angleterre."
+      },
+    ];
+
+    const productList = document.getElementById("productList");
+    const searchInput = document.getElementById("search");
+    const categorySelect = document.getElementById("category");
+    const productCount = document.getElementById("productCount");
+
+    function displayProducts() {
+      const search = searchInput.value.toLowerCase();
+      const category = categorySelect.value;
+
+      const filtered = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(search);
+        const matchesCategory =
+          category === "all" || product.category === category;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      productList.innerHTML = "";
+
+      filtered.forEach((product, index) => {
+        const card = document.createElement("article");
+        card.className = "product";
+
+        const stockText = product.available ? "Disponible" : "Épuisé";
+        const stockClass = product.available ? "" : "out";
+
+        card.innerHTML = `
+          <img class="product-image" src="${product.image}" alt="${product.name}">
+          <div class="product-content">
+            <h3>${product.name}</h3>
+            <p class="category">${product.category}</p>
+            <p class="price">${product.price.toLocaleString("fr-FR")} FCFA</p>
+            <p class="stock ${stockClass}">● ${stockText}</p>
+
+            <div class="product-actions">
+              <button class="small-btn view-button" type="button">
+                Voir
+              </button>
+
+              <button class="small-btn whatsapp whatsapp-button" type="button">
+                WhatsApp
+              </button>
+            </div>
+          </div>
+        `;
+
+        productList.appendChild(card);
+
+        card.querySelector(".view-button").addEventListener("click", () => {
+          openModal(product);
+        });
+        card.querySelector(".whatsapp-button").addEventListener("click", () => {
+          orderProduct(product);
+        });
+
+        setTimeout(() => {
+          card.classList.add("visible");
+        }, index * 100);
+      });
+
+      productCount.textContent = filtered.length;
+    }
+
+    function orderProduct(product) {
+      const message =
+        `Bonjour Royal N,%0A%0A` +
+        `Je souhaite commander : ${product.name}%0A` +
+        `Prix : ${product.price.toLocaleString("fr-FR")} FCFA%0A` +
+        `Pouvez-vous me confirmer la disponibilité et les tailles ?`;
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    }
+
+    function openModal(product) {
+      document.getElementById("modalTitle").textContent = product.name;
+      document.getElementById("modalImage").src = product.image;
+      document.getElementById("modalDescription").textContent =
+        `${product.description} Prix : ${product.price.toLocaleString("fr-FR")} FCFA.`;
+
+      document.getElementById("modalWhatsapp").href =
+        `https://wa.me/${whatsappNumber}?text=Bonjour%20Royal%20N%2C%20je%20suis%20intéressé%20par%20le%20${encodeURIComponent(product.name)}.`;
+
+      document.getElementById("modal").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.remove("active");
+    }
+
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+    searchInput.addEventListener("input", displayProducts);
+    categorySelect.addEventListener("change", displayProducts);
+
+    document.getElementById("modal").addEventListener("click", function(event) {
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+
+    displayProducts();
+  </script>
+
+</body>
+</html>
